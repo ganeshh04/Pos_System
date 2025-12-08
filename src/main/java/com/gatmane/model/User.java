@@ -27,7 +27,7 @@ public class User {
 
     private String phone;
 
-    @Column
+    @Column()
     private UserRole role;
     @Column(nullable = false)
     private  String password;
