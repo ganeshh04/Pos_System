@@ -9,8 +9,8 @@ import com.gatmane.model.UserRole;
 import com.gatmane.payload.dto.UserDto;
 import com.gatmane.payload.response.AuthResponse;
 import com.gatmane.repository.UserRepository;
-import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,8 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-
-import static com.gatmane.mapper.UserMapper.*;
 
 @Service
 @RequiredArgsConstructor
