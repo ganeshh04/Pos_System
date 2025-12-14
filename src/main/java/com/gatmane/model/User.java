@@ -29,6 +29,7 @@ public class User {
 
     @Column()
     private UserRole role;
+
     @Column(nullable = false)
     private  String password;
     private LocalDateTime createAt;

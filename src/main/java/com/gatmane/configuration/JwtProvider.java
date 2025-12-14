@@ -15,6 +15,7 @@ import java.util.Set;
 public class JwtProvider {
 
     static SecretKey key= Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
+
     public String generateToken(Authentication authentication){
         Collection<?extends GrantedAuthority> authorities=
                 authentication.getAuthorities();
