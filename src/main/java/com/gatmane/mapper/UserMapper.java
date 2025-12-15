@@ -8,6 +8,7 @@ public class UserMapper {
     public static UserDto toDTO(User saveUser){
         UserDto userDto=new UserDto();
         userDto.setId(saveUser.getId());
+        userDto.setFullname(saveUser.getFullname());
         userDto.setEmail(saveUser.getEmail());
         userDto.setRole(saveUser.getRole());
         userDto.setCreateAt(saveUser.getCreateAt());
