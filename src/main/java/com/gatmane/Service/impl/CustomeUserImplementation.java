@@ -15,7 +15,11 @@ import java.util.Collections;
 @Service
 public class CustomeUserImplementation implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomeUserImplementation(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRepository.findByEmail(username);
