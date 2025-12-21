@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -22,6 +23,12 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    private final JwtValidator jwtValidator;
+
+    // ✅ constructor injection (BEST PRACTICE)
+    public SecurityConfig(JwtValidator jwtValidator) {
+        this.jwtValidator = jwtValidator;
+    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -39,9 +46,11 @@ public class SecurityConfig {
                 )
 
                 // Add JWT validator filter
-                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
+//                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
+              .addFilterBefore(jwtValidator, UsernamePasswordAuthenticationFilter.class)
 
-                // Disable CSRF (required for APIs)
+
+              // Disable CSRF (required for APIs)
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // Enable CORS with custom settings
@@ -58,7 +67,7 @@ public class SecurityConfig {
     private CorsConfigurationSource corsConfigurationSource() {
         return new CorsConfigurationSource() {
             @Override
-            public @Nullable CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(
                         Arrays.asList("http://localhost:5173",

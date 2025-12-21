@@ -10,4 +10,5 @@ public class GaneshPosSystemApplication {
 		SpringApplication.run(GaneshPosSystemApplication.class, args);
 	}
 
+
 }

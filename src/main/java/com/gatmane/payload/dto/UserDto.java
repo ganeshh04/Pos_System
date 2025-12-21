@@ -4,11 +4,13 @@ import com.gatmane.model.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+
+@Getter
+@Setter
 public class UserDto {
 
     private int id;

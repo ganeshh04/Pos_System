@@ -8,21 +8,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
+@Component
 public class JwtValidator extends OncePerRequestFilter {
 
     @Override
@@ -39,42 +36,32 @@ public class JwtValidator extends OncePerRequestFilter {
             String token = jwt.substring(7);
 
             try {
-
-                // Key for verifying signature
                 SecretKey key = Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
 
-                // Parse and verify the token
                 Claims claims = Jwts.parser()
                         .verifyWith(key)
                         .build()
-                        .parseSignedClaims(jwt)
+                        .parseSignedClaims(token)
                         .getPayload();
-                ;
 
-                // Extract data
-                String email = String.valueOf(claims.get("email"));
-                String authorities = String.valueOf(claims.get("authorities"));
+                String email = claims.get("email", String.class);
+                String authorities = claims.get("authorities", String.class);
 
-                // Convert "ROLE_USER,ROLE_ADMIN" → List<GrantedAuthority>
-                List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList
-                        (authorities);
+                List<GrantedAuthority> auths =
+                        AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
 
-
-                // Create Authentication Object
-                Authentication auth =
+                Authentication authentication =
                         new UsernamePasswordAuthenticationToken(email, null, auths);
 
-                // Store into SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
             } catch (Exception e) {
-//                System.out.println("JWT validation failed: " + e.getMessage());
-
-                new BadCredentialsException("Invalid JWT...");
+                SecurityContextHolder.clearContext();
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
         }
 
-        // Continue filter chain
         filterChain.doFilter(request, response);
     }
 }
