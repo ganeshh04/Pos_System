@@ -1,5 +1,6 @@
 package com.gatmane.model;
 
+import com.gatmane.domain.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-     private int id;
+     private Long id;
 
     @Column(nullable = false)
     private String fullname;
@@ -24,6 +25,8 @@ public class User {
     @Email(message= "Email should be valid")
     private String email;
 
+    @ManyToOne
+    private Store store;
     private String phone;
 
     @Column()

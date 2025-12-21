@@ -5,7 +5,7 @@ import com.gatmane.configuration.JwtProvider;
 import com.gatmane.exceptions.UserException;
 import com.gatmane.mapper.UserMapper;
 import com.gatmane.model.User;
-import com.gatmane.model.UserRole;
+import com.gatmane.domain.UserRole;
 import com.gatmane.payload.dto.UserDto;
 import com.gatmane.payload.response.AuthResponse;
 import com.gatmane.repository.UserRepository;

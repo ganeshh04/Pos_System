@@ -1,9 +1,6 @@
 package com.gatmane.payload.dto;
 
-import com.gatmane.model.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import com.gatmane.domain.UserRole;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class UserDto {
 
-    private int id;
+    private Long id;
 
 
     private String fullname;

@@ -6,6 +6,7 @@ import com.gatmane.payload.dto.UserDto;
 public class UserMapper {
 
     public static UserDto toDTO(User saveUser){
+        if (saveUser == null) return null;
         UserDto userDto=new UserDto();
         userDto.setId(saveUser.getId());
         userDto.setFullname(saveUser.getFullname());

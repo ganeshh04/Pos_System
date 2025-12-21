@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class USerServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -29,7 +29,7 @@ public class USerServiceImpl implements UserService {
     }
 
     @Override
-    public User getCurrentUSer() throws UserException {
+    public User getCurrentUser() throws UserException {
 
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         User user=userRepository.findByEmail(email);
@@ -52,9 +52,7 @@ public class USerServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
 
-        return userRepository.findById(id).orElseThrow(
-                null
-        );
+        return userRepository.findById(id).orElseThrow(null);
     }
 
     @Override

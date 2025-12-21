@@ -5,30 +5,42 @@ import com.gatmane.model.User;
 import com.gatmane.payload.dto.StoreDto;
 
 public class StoreMapper {
-    public static StoreDto toDTO(Store store){
-        StoreDto storeDto=new StoreDto();
-        storeDto.setId(store.getId());
-        storeDto.setBrand(store.getBrand());
-        storeDto.setDescription(store.getDescription());
-        storeDto.setStoreAdmin(UserMapper.toDTO(store.getStoreAdmin()));
-        storeDto.setStoreType(store.getStoreType());
-        store.setContact(store.getContact());
-        storeDto.setCreatedAt(store.getCreatedAt());
-        storeDto.setUpdatedAt(store.getUpdatedAt());
-        store.setStatus(store.getStatus());
-        return storeDto;
+
+    // ================= ENTITY → DTO =================
+    public static StoreDto toDTO(Store store) {
+
+        if (store == null) return null;
+
+        StoreDto dto = new StoreDto();
+        dto.setId(store.getId());
+        dto.setBrand(store.getBrand());
+        dto.setDescription(store.getDescription());
+        dto.setStoreType(store.getStoreType());
+        dto.setContact(store.getContact());
+        dto.setStatus(store.getStatus());
+        dto.setCreatedAt(store.getCreatedAt());
+        dto.setUpdatedAt(store.getUpdatedAt());
+
+        if (store.getStoreAdmin() != null) {
+            dto.setStoreAdmin(UserMapper.toDTO(store.getStoreAdmin()));
+        }
+
+        return dto;
     }
 
-    public static Store toEntity(StoreDto storeDto ,User storeAdmin){
-        Store store=new Store();
-        storeDto.setId(store.getId());
-        storeDto.setBrand(store.getBrand());
-        storeDto.setDescription(store.getDescription());
-        storeDto.setStoreAdmin(UserMapper.toDTO(store.getStoreAdmin()));
-        storeDto.setStoreType(store.getStoreType());
-        store.setContact(store.getContact());
-        storeDto.setCreatedAt(store.getCreatedAt());
-        storeDto.setUpdatedAt(store.getUpdatedAt());
+    // ================= DTO → ENTITY =================
+    public static Store toEntity(StoreDto dto, User storeAdmin) {
+
+        Store store = new Store();
+
+        store.setBrand(dto.getBrand());
+        store.setDescription(dto.getDescription());
+        store.setStoreType(dto.getStoreType());
+        store.setContact(dto.getContact());
+        store.setStatus(dto.getStatus());
+
+        // 🔥 IMPORTANT
+        store.setStoreAdmin(storeAdmin);
 
         return store;
     }
