@@ -29,7 +29,7 @@ public class ProductDTO {
 
     private String image;
 
-//    private Category category;
+    private CategoryDTO category;
 
     private Long categoryId;
     private Long storeId;

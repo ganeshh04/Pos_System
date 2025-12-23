@@ -2,14 +2,17 @@ package com.gatmane.Service.impl;
 
 import com.gatmane.Service.ProductService;
 import com.gatmane.mapper.ProductMapper;
+import com.gatmane.model.Category;
 import com.gatmane.model.Product;
 import com.gatmane.model.Store;
 import com.gatmane.model.User;
 import com.gatmane.payload.dto.ProductDTO;
+import com.gatmane.repository.CategoryRepository;
 import com.gatmane.repository.ProductRepository;
 import com.gatmane.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.sql.exec.ExecutionException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,7 +24,8 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-  private final StoreRepository storeRepository;
+    private final StoreRepository storeRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public ProductDTO createProduct(ProductDTO productDTO, User user) throws Exception{
@@ -30,7 +34,11 @@ public class ProductServiceImpl implements ProductService {
                 ).orElseThrow(
                         ()->new Exception("Store not found")
                 );
-        Product product= ProductMapper.toEntity(productDTO,store);
+
+        Category category=categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(
+                ()-> new Exception("category not found")
+        );
+        Product product= ProductMapper.toEntity(productDTO,store,category);
         Product savedProduct=productRepository.save(product);
         return ProductMapper.toDTO(savedProduct);
     }
@@ -41,6 +49,14 @@ public class ProductServiceImpl implements ProductService {
         Product product=productRepository.findById(id).orElseThrow(
                 ()->new Exception("product not found")
         );
+        if(productDTO.getCategoryId()!=null){
+            Category category=categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(
+                    ()-> new Exception("category not found")
+            );
+            product.setCategory(category);
+        }
+
+
         product.setName(product.getName());
         product.setDescription(product.getDescription());
         product.setSku(product.getSku());
