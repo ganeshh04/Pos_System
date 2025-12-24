@@ -18,7 +18,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final UserService userService;
-    @GetMapping
+    @PostMapping
     public ResponseEntity<ProductDTO>create(@RequestBody ProductDTO productDTO,
                                             @RequestHeader("Authorization")String jwt) throws Exception {
         User user=userService.getUserFromJwtToken(jwt);
