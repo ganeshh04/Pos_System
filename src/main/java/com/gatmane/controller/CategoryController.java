@@ -30,7 +30,7 @@ public class CategoryController {
         return   ResponseEntity.ok(categoryService.getCategoriesByStore(storeId));
     }
 
-    @PutMapping("/{id}/")
+    @PutMapping("/{id}")
     public ResponseEntity<CategoryDTO>updateCategory(
             @RequestBody CategoryDTO categoryDTO,
             @PathVariable Long id)
