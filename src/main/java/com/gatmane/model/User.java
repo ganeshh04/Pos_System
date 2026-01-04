@@ -27,6 +27,8 @@ public class User {
 
     @ManyToOne
     private Store store;
+    @ManyToOne
+    private Branch branch;
     private String phone;
 
     @Column()

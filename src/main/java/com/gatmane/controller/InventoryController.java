@@ -20,7 +20,7 @@ public class InventoryController {
         return ResponseEntity.ok(inventoryService.createInventory(inventoryDTO));
     }
 
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<InventoryDTO>update(@RequestBody InventoryDTO inventoryDTO,@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(inventoryService.updateInventory(id,inventoryDTO));
     }
@@ -43,7 +43,7 @@ public class InventoryController {
     }
 
     @GetMapping("/branch/{branchId}")
-    public ResponseEntity<List<InventoryDTO>> getInventoryByBrnach(@RequestBody InventoryDTO inventoryDTO,@PathVariable Long branchId) throws Exception {
+    public ResponseEntity<List<InventoryDTO>> getInventoryByBrnach(@PathVariable Long branchId) throws Exception {
         return ResponseEntity.ok(inventoryService.getAllInventoryByBranchId(branchId));
     }
 }

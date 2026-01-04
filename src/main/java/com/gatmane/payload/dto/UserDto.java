@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     private Long id;
@@ -25,6 +27,8 @@ public class UserDto {
 
     private String  password;
 
+    private Long branchId;
+    private Long storeId;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private LocalDateTime lastLogin;
