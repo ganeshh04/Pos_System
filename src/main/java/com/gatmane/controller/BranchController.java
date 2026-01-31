@@ -2,7 +2,6 @@ package com.gatmane.controller;
 
 import com.gatmane.Service.BranchService;
 import com.gatmane.exceptions.UserException;
-import com.gatmane.model.Branch;
 import com.gatmane.payload.dto.BranchDTO;
 import com.gatmane.payload.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
