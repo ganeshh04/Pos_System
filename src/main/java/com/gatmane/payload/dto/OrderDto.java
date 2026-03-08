@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -33,6 +34,6 @@ public class OrderDto {
 
     private PaymentType paymentType;
 
-    private List<OrderItemDto>orderItems;
+    private List<OrderItemDto>orderItems= new ArrayList<>();
 
 }

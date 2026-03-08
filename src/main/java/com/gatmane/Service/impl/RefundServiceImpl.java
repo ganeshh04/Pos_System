@@ -66,7 +66,7 @@ public class RefundServiceImpl implements RefundService {
 
     @Override
     public List<RefundDto> getRefundByCashierAndDateRange(Long cashierId, LocalDateTime startDate, LocalDateTime endDate) throws Exception {
-        return refundRepository.findByCashierAndCreatedAtBetween(
+        return refundRepository.findByCashier_IdAndCreatedAtBetween(
                 cashierId,startDate,endDate
         ).stream().map(RefundMapper::toDTO).collect(Collectors.toList());
 

@@ -16,27 +16,27 @@ import java.util.List;
 @RequestMapping("api/orders")
 public class OrderController {
 
-    private  final OrderService orderService;
+    private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderDto>createOrder(@RequestBody OrderDto order) throws Exception {
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto order) throws Exception {
         return ResponseEntity.ok(orderService.
                 createOrder(order));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDto>getOrderById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<OrderDto> getOrderById(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(orderService.
                 getOrderById(id));
     }
 
     @GetMapping("/branch/{branchId}")
-    public ResponseEntity<List<OrderDto>>getOrderByBranch(@PathVariable Long branchId, @RequestParam(required=false)Long customerId,
-                                                    @RequestParam(required=false) Long cashierId,
-                                                    @RequestParam(required = false)PaymentType paymentType,
-                                                    @RequestParam(required = false)OrderStatus orderStatus) throws Exception {
+    public ResponseEntity<List<OrderDto>> getOrderByBranch(@PathVariable Long branchId, @RequestParam(required = false) Long customerId,
+                                                           @RequestParam(required = false) Long cashierId,
+                                                           @RequestParam(required = false) PaymentType paymentType,
+                                                           @RequestParam(required = false) OrderStatus orderStatus) throws Exception {
         return ResponseEntity.ok(orderService.
-                getOrdersByBranch(branchId,customerId,cashierId,paymentType,orderStatus));
+                getOrdersByBranch(branchId, customerId, cashierId, paymentType, orderStatus));
     }
 
     @GetMapping("/cashier/{id}")

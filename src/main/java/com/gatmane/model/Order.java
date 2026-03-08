@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -32,8 +33,9 @@ public class Order {
     @ManyToOne
     private Customer customer;
 
-    @OneToMany
-    private List<OrderItem>items;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> items = new ArrayList<>();
+
 
     private PaymentType paymentType;
     @PrePersist

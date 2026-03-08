@@ -3,6 +3,7 @@ package com.gatmane.mapper;
 import com.gatmane.model.Order;
 import com.gatmane.payload.dto.OrderDto;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrderMapper {
@@ -15,8 +16,12 @@ public class OrderMapper {
                 .customer(order.getCustomer())
                 .paymentType(order.getPaymentType())
                 .createdAt(order.getCreatedAt())
-                .orderItems(order.getItems().stream()
-                        .map(OrderItemMapper::toDTO).collect(Collectors.toList()))
+                .orderItems(order.getItems() == null ?
+                        List.of() :
+                        order.getItems().stream()
+                                .map(OrderItemMapper::toDTO)
+                                .collect(Collectors.toList()))
+
                 .build();
     }
 }

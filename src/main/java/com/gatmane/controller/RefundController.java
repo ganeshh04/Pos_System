@@ -1,13 +1,13 @@
 package com.gatmane.controller;
 
 import com.gatmane.Service.RefundService;
+import com.gatmane.model.User;
 import com.gatmane.payload.dto.RefundDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,8 +37,8 @@ public class RefundController {
     }
 
     @GetMapping("/branch/{branchId}")
-    public ResponseEntity <List<RefundDto>> getRefundByBranch(@PathVariable Long cashierId)throws Exception{
-        List<RefundDto>refund=refundService.getRefundByCashier(cashierId);
+    public ResponseEntity <List<RefundDto>> getRefundByBranch(@PathVariable Long branchId)throws Exception{
+        List<RefundDto>refund=refundService.getRefundByCashier(branchId);
         return ResponseEntity.ok(refund);
     }
 

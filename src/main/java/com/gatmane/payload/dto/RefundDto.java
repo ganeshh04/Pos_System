@@ -1,21 +1,18 @@
 package com.gatmane.payload.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gatmane.domain.PaymentType;
-import com.gatmane.model.Branch;
-import com.gatmane.model.Order;
-import com.gatmane.model.ShiftReport;
-import com.gatmane.model.User;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class RefundDto {
 
     private Long id;
